@@ -1,0 +1,49 @@
+Libspelling for Ruby
+Copyright 2026 General Intelligence Systems
+
+This product includes software developed by the GNOME Project.
+
+--------------------------------------------------------------------------------
+libspelling (the C library)
+--------------------------------------------------------------------------------
+
+This gem defines its classes from libspelling-1's GObject Introspection
+typelib, Spelling-1.typelib, which it reads at require time. The spell checking
+is done by that library: it is GNOME Text Editor's and Builder's spell checker.
+
+  https://gitlab.gnome.org/GNOME/libspelling
+  Copyright 2024 Christian Hergert and contributors
+  Licensed under the GNU Lesser General Public License, version 2.1 or later
+
+This gem is distributed under the Apache License, Version 2.0. It links nothing
+and vendors nothing: the library and its typelib come from the system at run
+time, so a recipient remains free to replace them with their own build. Nothing
+in this repository is derived from libspelling's source -- a typelib is a
+machine-readable description of an interface, and what this gem does with it is
+read it.
+
+--------------------------------------------------------------------------------
+enchant, and the dictionaries
+--------------------------------------------------------------------------------
+
+libspelling-1 does no spelling itself either. It asks enchant, which asks
+whichever backend the user has installed -- usually hunspell -- and the word
+lists those backends read are packaged separately again, under their own
+licences. None of that is in this repository, and which dictionaries exist on a
+machine is why Spelling::Provider#list_languages has to be asked rather than
+assumed.
+
+  https://abiword.github.io/enchant/
+  Licensed under the GNU Lesser General Public License, version 2.1 or later
+
+--------------------------------------------------------------------------------
+ruby-gnome
+--------------------------------------------------------------------------------
+
+The loader is GObjectIntrospection::Loader, from ruby-gnome, and is written on
+the model of ruby-gnome's own gtksourceview5 and libsecret loaders. It appears
+here as a gem dependency rather than as copied code.
+
+  https://github.com/ruby-gnome/ruby-gnome
+  Copyright the Ruby-GNOME Project Team
+  Licensed under the GNU Lesser General Public License, version 2.1 or later
